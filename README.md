@@ -6,6 +6,11 @@
 
 Achieves up to **99.6% structural sparsity** with **sub-3ms inference latency** on Apple M3 Pro (MPS), while maintaining production-level prediction accuracy limits. By bridging hardware-aware mathematical compression with autonomous analytical agents, this platform dramatically shifts inference barriers for Edge-IoT applications.
 
+<p align="center">
+  <img src="assets/dashboard_hero.png" alt="Dashboard Hero — Autonomous model selection with real-time hardware telemetry" width="100%"/>
+</p>
+<p align="center"><em>Live dashboard: Autonomous model selection using Pareto optimization with real-time hardware telemetry</em></p>
+
 ---
 
 ## 🎯 The Problem
@@ -71,7 +76,20 @@ The system fundamentally proves that scaling the Pareto threshold multiplier for
 | Extreme Bound ($\lambda = 0.01$) | ~1.60ms | -99.9% | 78.7% |
 | **Optimal Path ($\lambda = 0.001$)** | **~2.87ms** | **-98.4%** | **83.0%** |
 
-*(Visual Dashboards: Refer to `/dashboard` outputs mapping the Pareto Frontier curve across evaluation nodes).*
+<p align="center">
+  <img src="assets/pareto_frontier.png" alt="Pareto Frontier Optimization and Training Dynamics" width="100%"/>
+</p>
+<p align="center"><em>Pareto Frontier: Interactive optimization surface mapping accuracy vs sparsity tradeoffs</em></p>
+
+<p align="center">
+  <img src="assets/compression_chart.png" alt="Model Compression Lifecycle and Hardware Tracing" width="100%"/>
+</p>
+<p align="center"><em>Compression lifecycle: Transition from dense training to deployment-ready hard-pruned architecture</em></p>
+
+<p align="center">
+  <img src="assets/agent_reasoning.png" alt="Agent Reasoning and RAG Intelligence" width="100%"/>
+</p>
+<p align="center"><em>Real-time AI reasoning for deployment decisions with FAISS-powered semantic retrieval</em></p>
 
 ---
 
