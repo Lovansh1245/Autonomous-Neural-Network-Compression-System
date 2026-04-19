@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.env
+.DS_Store
+.pytest_cache/
+node_modules/
+outputs/models/*.pt
+outputs/logs/
+outputs/rag/
+dashboard/dist/
+dashboard/node_modules/
+data/
+*.tar.gz
