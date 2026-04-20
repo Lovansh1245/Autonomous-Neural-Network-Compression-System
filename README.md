@@ -1,8 +1,8 @@
-# 🚀 Autonomous Neural Network Compression System
+# Autonomous Neural Network Compression System
 
 > **A production-grade AI system that autonomously learns, compresses, evaluates, and recommends optimal neural network configurations using agent-based reasoning and retrieval-augmented intelligence.**
 
-## ⚡ Impact
+## Impact
 
 Achieves up to **99.6% structural sparsity** with **sub-3ms inference latency** on Apple M3 Pro (MPS), while maintaining production-level prediction accuracy limits. By bridging hardware-aware mathematical compression with autonomous analytical agents, this platform dramatically shifts inference barriers for Edge-IoT applications.
 
@@ -13,14 +13,14 @@ Achieves up to **99.6% structural sparsity** with **sub-3ms inference latency** 
 
 ---
 
-## 🎯 The Problem
+## The Problem
 
 Deploying deep learning models to production—especially at the edge—is fundamentally bottlenecks by three challenges:
 1. **Compute Cost:** Dense Neural Networks execute billions of redundant FLOP operations per inference.
 2. **Latency Limitations:** Memory-bound GPU pipelines limit real-time continuous applications.
 3. **Inefficiency of Dense Models:** Traditional parameters are bloated. Attempting manual pruning often collapses mathematical accuracy non-linearly or relies on simulated zero-masks rather than extracting true hardware utility.
 
-## 💡 The Solution
+## The Solution
 
 We engineer an end-to-end continuous learning platform that doesn't just compress networks, but *reasons* about them:
 *   **Self-Pruning Pipeline:** Injects learnable, temperature-relaxed logic gates natively into PyTorch modules, driving a sparsity-penalized Pareto optimization cycle.
@@ -30,7 +30,7 @@ We engineer an end-to-end continuous learning platform that doesn't just compres
 
 ---
 
-## 🏗️ Architecture Flow
+## Architecture Flow
 
 ```mermaid
 flowchart LR
@@ -47,7 +47,7 @@ flowchart LR
 
 ---
 
-## 🔬 Core ML Innovation
+## Core ML Innovation
 
 The core pruning strategy drops naive magnitude thresholding in favor of **structural gradient propagation**:
 1. **Learnable Gates:** Tensor blocks are multiplied against continuous variables tracked in the optimizer, structurally penalized by an explicit L1 Sparsity Loss operator (`\lambda`).
@@ -56,7 +56,7 @@ The core pruning strategy drops naive magnitude thresholding in favor of **struc
 
 ---
 
-## ⚙️ System Components
+## System Components
 
 1. **ML Core (`layers.py`, `train.py`):** Pure structured PyTorch pruning natively accelerating to MPS frameworks.
 2. **Backend Engine (`api.py`):** Uvicorn-hosted Python microservice maintaining async checkpoints and HTTP metric streams.
@@ -66,7 +66,7 @@ The core pruning strategy drops naive magnitude thresholding in favor of **struc
 
 ---
 
-## 📊 Results Summary
+## Results Summary
 
 The system fundamentally proves that scaling the Pareto threshold multiplier forces aggressive network collapse without structural failure.
 
@@ -93,7 +93,7 @@ The system fundamentally proves that scaling the Pareto threshold multiplier for
 
 ---
 
-## 🧠 Engineering Challenges
+## Engineering Challenges
 
 Getting this intelligence pipeline stable required solving explicit low-level PyTorch edge-cases:
 *   **AdamW Weight Decay Conflict:** PyTorch's native `AdamW` couples weight decay inextricably against the sparsity gates, causing the models to "die" randomly. I implemented explicit PyTorch parameter grouping to decouple algorithmic weights from decay parameters, protecting the gating structural loss.
@@ -109,7 +109,7 @@ Getting this intelligence pipeline stable required solving explicit low-level Py
 
 ---
 
-## ⚠️ Limitations & Future Work
+## Future Work
 
 *   **Convolutional Granularity:** At extreme extremes ($\lambda > 0.1$), the Convolutional Tensors may face collapse. The architecture restricts extreme channel pruning by tracking zero-vectors actively, but further residual block connections are required for stability at 99.99% bounds.
 *   **Hardware Profiling:** True execution times fluctuate highly on unified memory Apple Silicon (MPS vs CPU fallback states); explicit GPU allocations mapping to server clusters natively would stabilize latency measurements.
