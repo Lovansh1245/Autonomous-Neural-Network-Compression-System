@@ -28,6 +28,7 @@ import torchvision.transforms as T
 
 from config import TrainConfig, PathConfig, get_device
 from model import PrunableCNN
+from layers import PrunableLinear
 
 logger = logging.getLogger("train")
 
@@ -77,6 +78,31 @@ def get_cifar10_loaders(
     )
 
     return train_loader, test_loader
+
+
+# ─── Sparsity Level Metric ───────────────────────────────────────────────────────
+
+def compute_sparsity_level(model: PrunableCNN) -> float:
+    """
+    Compute the Sparsity Level (%) metric.
+
+    Strictly defined as: the percentage of all weights across ALL PrunableLinear
+    layers where the final gate value (sigmoid of gate_scores / temperature)
+    is < 1e-2.
+
+    This is the canonical sparsity metric for the case study evaluation.
+    """
+    total_weights = 0
+    pruned_weights = 0
+    with torch.no_grad():
+        for layer in model.prunable_layers:
+            if isinstance(layer, PrunableLinear):
+                gate_values = layer.gate_activations  # sigmoid(gate_scores / temp)
+                total_weights += gate_values.numel()
+                pruned_weights += (gate_values < 1e-2).sum().item()
+    if total_weights == 0:
+        return 0.0
+    return (pruned_weights / total_weights) * 100.0
 
 
 # ─── Lambda Scheduling ──────────────────────────────────────────────────────────
@@ -281,6 +307,7 @@ def train_model(
         train_acc = correct / total
         test_acc = evaluate_accuracy(model, test_loader, config.device)
         sparsity = model.get_sparsity()
+        sparsity_level_pct = compute_sparsity_level(model)
         best_accuracy = max(best_accuracy, test_acc)
 
         avg_loss = total_loss / len(train_loader)
@@ -310,7 +337,7 @@ def train_model(
                 f"  Epoch {epoch+1:3d}/{config.epochs} │ "
                 f"Loss: {avg_loss:.4f} (CE: {avg_ce:.4f} + λ·S: {eff_lambda*avg_sparse:.4f}) │ "
                 f"Train: {train_acc:.3f} │ Test: {test_acc:.3f} │ "
-                f"Sparsity: {sparsity:.1%} │ Temp: {temp:.3f}"
+                f"Sparsity: {sparsity:.1%} │ SparsityLevel: {sparsity_level_pct:.1f}% │ Temp: {temp:.3f}"
             )
 
         # Periodic MPS memory cleanup
@@ -348,6 +375,7 @@ def train_model(
         },
         "final_accuracy": evaluate_accuracy(model, test_loader, config.device),
         "final_sparsity": model.get_sparsity(),
+        "sparsity_level_pct": compute_sparsity_level(model),
         "inference_ms_baseline": baseline_ms,
         "inference_ms_pruned": pruned_ms,
     }, model_path)
