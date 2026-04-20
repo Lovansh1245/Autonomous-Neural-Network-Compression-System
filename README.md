@@ -102,7 +102,7 @@ Getting this intelligence pipeline stable required solving explicit low-level Py
 
 ---
 
-## 💻 Technical Stack
+## Technical Stack
 *   **Intelligence:** `PyTorch` (MPS Accelerated), `FAISS`, `sentence-transformers`
 *   **Backend Services:** `FastAPI`, `Uvicorn`, `Pydantic`
 *   **Frontend Engine:** `React`, `Vite`, `TailwindCSS v4`, `Recharts`, `Framer Motion`
